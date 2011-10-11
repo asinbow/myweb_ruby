@@ -1,6 +1,8 @@
 
 class App < Sinatra::Base
 
+  set :port, 80
+
   get '/' do
   'Hello world'
   end
