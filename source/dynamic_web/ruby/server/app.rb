@@ -1,10 +1,10 @@
 
 class App < Sinatra::Base
 
-  set :port, 80
+  set :port, 9915
 
   get '/' do
-  'Hello world'
+  'Hello world! I am the sinatra web server'
   end
 
   get '/echo/:content' do

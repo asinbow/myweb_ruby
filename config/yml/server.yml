@@ -1,0 +1,7 @@
+servers:
+
+  dynamic_web:
+    port: 9915
+
+  web_socket:
+    port: 7321

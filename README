@@ -1,0 +1,15 @@
+Deploy:
+    use Apache
+        Append virtual host
+
+#----------------------------------------------------------
+<VirtualHost *:80>
+    DocumentRoot "/your/project/directory/public/"
+    <Directory "/your/project/directory/public/">
+        AllowOverride all
+        Options -MultiViews
+    </Directory>
+    ProxyPass /dw http://localhost/9915 # dynamic web server
+    ProxyPass /ws http://localhost/7321 # web socket server
+</VirtualHost>
+#----------------------------------------------------------
