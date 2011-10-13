@@ -1,8 +1,6 @@
 source :rubygems
 
 gem 'sinatra', :git => "git://github.com/sinatra/sinatra.git"
-  
-gem 'yaml'
 
 gem 'haml'
 gem 'bson_ext'

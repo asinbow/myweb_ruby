@@ -1,0 +1,8 @@
+#!/bin/bash
+
+SCRIPT_PATH=`dirname $0`
+ROOT_PATH=`dirname $SCRIPT_PATH`
+
+SERVER_TYPE=dynamic_web bundle exec ruby "$ROOT_PATH/config/boot.rb"
+
+

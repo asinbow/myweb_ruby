@@ -2,6 +2,7 @@ servers:
 
   dynamic_web:
     port: 9915
+    tenacy_url: http://vpnix.tenacy.com/public
 
   web_socket:
     port: 7321
