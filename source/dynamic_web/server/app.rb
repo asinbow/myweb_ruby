@@ -22,8 +22,7 @@ class App < Sinatra::Base
   end
 
   get '/refresh' do
-    refresh
-    redirect '/'
+    redirect refresh
   end
 
   get '/echo/:content' do
