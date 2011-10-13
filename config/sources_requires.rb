@@ -13,7 +13,6 @@ def require_entire_directory(directory, recursive=true)
   end
 end
 
-SERVER_TYPE = ENV['SERVER_TYPE']
 SERVER_ROOT_PATH = File.join(ROOT_PATH, 'source', SERVER_TYPE)
 require_entire_directory(SERVER_ROOT_PATH)
 
