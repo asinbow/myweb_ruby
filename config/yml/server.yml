@@ -1,8 +1,12 @@
 servers:
 
   dynamic_web:
+    host: 0.0.0.0
     port: 9915
     tenacy_url: http://vpnix.tenacy.com/public
 
   web_socket:
+    host: 0.0.0.0
     port: 7321
+    domain: localhost
+    #domain: ec2-50-17-254-16.compute-1.amazonaws.com

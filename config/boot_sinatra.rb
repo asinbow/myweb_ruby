@@ -4,3 +4,4 @@ $LOAD_PATH << ROOT_PATH
 
 require 'config/initialize'
 
+App.run!

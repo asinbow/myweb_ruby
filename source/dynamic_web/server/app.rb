@@ -25,8 +25,14 @@ class App < Sinatra::Base
     redirect refresh
   end
 
+  # simpe echo
   get '/echo/:content' do
     haml :echo, :locals => {:content => params[:content]}
+  end
+
+  get '/game' do
+    @ws_url ||= "ws://" + SERVERS_CONFIG['web_socket']['domain'] + ':' + SERVERS_CONFIG['web_socket']['port'].to_s + '/'
+    haml :game, :locals => {:ws_url => @ws_url}
   end
   
 end
