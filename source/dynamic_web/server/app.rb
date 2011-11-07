@@ -10,7 +10,10 @@ class App < Sinatra::Base
 
   def url_history
     @url_history ||= begin
-                       return YAML.load(File.read(url_file)) if File.exist?(url_file)
+                       if File.exist?(url_file)
+                         history = YAML.load(File.read(url_file))
+                         return history if history.is_a?(Array) && history.length>0
+                       end
                        [SERVER_CONFIG['tenacy_url']]
                      end
   end
@@ -23,9 +26,9 @@ class App < Sinatra::Base
       response = http.request(request)
       case response.code
       when '200'
-        [false, url]
+        return [false, url]
       when '301'
-        [true, response["Location"]]
+        return [true, response["Location"]]
       when '404'
         # next
       else
@@ -38,7 +41,7 @@ class App < Sinatra::Base
     history = url_history
     redirect, url = try_url_history(history)
     if redirect
-      history.push(url)
+      history.unshift(url)
       File.open(url_file, 'w+') do |f|
         f.write(history.to_yaml)
       end
