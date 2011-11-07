@@ -4,7 +4,7 @@ servers:
     host: 0.0.0.0
     port: 9915
     tenacy_url: "http://vpnix.tenacy.com/public"
-    url_file: "tmp/url.yml"
+    tenacy_url_file: "tmp/url.yml"
 
   web_socket:
     host: 0.0.0.0
