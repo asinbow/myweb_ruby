@@ -3,6 +3,6 @@
 SCRIPT_PATH=`dirname $0`
 ROOT_PATH=`dirname $SCRIPT_PATH`
 
-SERVER_TYPE=web_socket bundle exec ruby "$ROOT_PATH/config/boot.rb"
+CPUPROFILE=/tmp/web_socket.tmp RUBYOPT="-r`gem which perftools | tail -l`" SERVER_TYPE=web_socket bundle exec ruby "$ROOT_PATH/config/boot.rb"
 
 

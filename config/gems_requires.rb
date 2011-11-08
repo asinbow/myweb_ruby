@@ -13,3 +13,5 @@ require 'em-websocket'
 
 require "net/http"
 require "uri"
+
+require 'perftools'

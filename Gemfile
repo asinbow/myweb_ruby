@@ -7,6 +7,7 @@ gem 'bson_ext'
 gem 'mongo_mapper'
 
 gem 'em-websocket'
+gem 'perftools.rb'
 
 group 'development' do
 
