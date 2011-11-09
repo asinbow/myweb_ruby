@@ -1,6 +1,7 @@
 
 
 def require_entire_directory(directory, recursive=true)
+  failed = []
   Dir.entries(directory).each do |path|
     next if ['.', '..'].include?(path)
     path = File.join(directory, path)
@@ -9,7 +10,14 @@ def require_entire_directory(directory, recursive=true)
       require_entire_directory(path, true) if recursive
       next
     end
-    require(path) if path.end_with?('.rb')
+    begin
+      require(path) if path.end_with?('.rb')
+    rescue Exception => e
+      failed.push(path)
+    end
+  end
+  failed.each do |path|
+    require(path)
   end
 end
 

@@ -3,6 +3,6 @@
 SCRIPT_PATH=`dirname $0`
 ROOT_PATH=`dirname $SCRIPT_PATH`
 
-CPUPROFILE=/tmp/dynamic_web.tmp RUBYOPT="-r`gem which perftools | tail -l`" SERVER_TYPE=dynamic_web bundle exec ruby "$ROOT_PATH/config/boot_sinatra.rb"
+SERVER_TYPE=dynamic_web bundle exec ruby "$ROOT_PATH/config/boot_sinatra.rb"
 
 

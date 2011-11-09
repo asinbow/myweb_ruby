@@ -4,17 +4,40 @@
     :javascript
       $(document).ready(function(){
         function debug(str){ $("#debug").append("<p>"+str+"</p>"); };
+        function msg(str){ $("#msg").append("<p>"+str+"</p>"); };
+        function handle(data){
+          var user_sigature=data[0];
+          switch(data[1]){
+          case 1: msg(user_sigature + "登录了。");break;
+          case 2: msg(user_sigature + "下线了。");break;
+          case 3: msg(user_sigature + "说：" + data[2]);break;
+          case 4: break;
+          default: debug(user_sigature + ": unknow command" + data);break;
+          }
+        };
         ;
         ws = new WebSocket("#{ws_url}");
-        ws.onmessage = function(evt) { $("#msg").append("<p>"+evt.data+"</p>"); };
-        ws.onclose = function() { debug("socket closed"); };
-        ws.onopen = function() {
-          debug("connected...");
-          ws.send("hello server");
+        ws.onmessage = function(evt){
+          handle(JSON.parse(evt.data));
         };
+        ws.onopen=function(){
+          //debug("connected...");
+          //ws.send("hello server");
+          $("input").show().focus();
+          $("input").keypress(function(e){
+            if(e.which==13){
+              ws.send(JSON.stringify([3, this.value]));
+              this.value = '';
+            }
+          });
+        };
+        ws.onclose=function(){ debug("socket closed"); };
+        
       });
   %body
+    #msg_root
+      #msg
+    %input{:hidden => true}
     #debug
-    #msg
 
 
