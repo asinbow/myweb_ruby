@@ -1,0 +1,112 @@
+monitor_pattern = "%d %x %m"
+statlog_pattern = "%d %x %m"
+auditlog_pattern = "%m"
+errorlog_pattern = "%d %x %m"
+%>
+log4r_config:
+  pre_config:
+    custom_levels:
+      - DETAIL
+      - DEBUG
+      - INFO
+      - WARN
+      - ERROR
+      - FATAL
+  loggers:
+    - name      : default
+      level     : INFO
+      additive  : 'false'
+      trace     : 'true'
+      outputters:
+        - stdout
+        - logfile
+    - name      : monitor
+      level     : INFO
+      additive  : 'false'
+      trace     : 'false'
+      outputters:
+        - monitor
+    - name      : errorlog
+      level     : INFO
+      additive  : 'false'
+      trace     : 'false'
+      outputters:
+        - errorlog
+
+    - name      : statlog
+      level     : INFO
+      additive  : 'false'
+      trace     : 'false'
+      outputters:
+        - statlog
+
+    - name      : auditlog
+      level     : INFO
+      additive  : 'false'
+      trace     : 'false'
+      outputters:
+        - auditlog
+      
+  outputters:
+    - type     : StdoutOutputter
+      name     : stdout 
+      level    : DEBUG
+      formatter:
+        date_pattern: '%Y-%m-%d %H:%M:%S'
+        pattern     : '<%= pattern %>'
+        type        : PatternFormatter
+
+    - type        : DateFileOutputter
+      name        : logfile
+      level       : INFO
+      date_pattern: '<%= "#{SERVER_ID}-#{SERVER_ENV}-%Y%m%d-#{Socket.gethostname}" %>'
+      trunc       : 'false'
+      dirname     : "#{ROOT_PATH}/log"
+      formatter   :
+        date_pattern: '%Y-%m-%d %H:%M:%S'
+        pattern     : '<%= pattern %>'
+        type        : PatternFormatter
+
+    - type        : DateFileOutputter
+      name        : monitor
+      level       : INFO
+      date_pattern: '<%= "#{SERVER_ID}-#{SERVER_ENV}-monitor-%Y%m%d-#{Socket.gethostname}" %>'
+      trunc       : 'false'
+      dirname     : "#{ROOT_PATH}/log"
+      formatter   :
+        date_pattern: '%Y-%m-%d %H:%M:%S'
+        pattern     : '<%= monitor_pattern %>'
+        type        : PatternFormatter
+
+    - type        : DateFileOutputter
+      name        : errorlog
+      level       : ERROR
+      date_pattern: '<%= "#{SERVER_ID}-#{SERVER_ENV}-error-%Y%m%d-#{Socket.gethostname}" %>'
+      trunc       : 'false'
+      dirname     : "#{ROOT_PATH}/log"
+      formatter   :
+        date_pattern: '%Y-%m-%d %H:%M:%S'
+        pattern     : '<%= errorlog_pattern %>'
+        type        : PatternFormatter
+
+    - type        : DateFileOutputter
+      name        : statlog
+      level       : INFO
+      date_pattern: '<%= "#{SERVER_ID}-#{SERVER_ENV}-statistics-%Y%m%d-#{Socket.gethostname}" %>'
+      trunc       : 'false'
+      dirname     : "#{ROOT_PATH}/log"
+      formatter   :
+        date_pattern: '%Y-%m-%d %H:%M:%S'
+        pattern     : '<%= statlog_pattern %>'
+        type        : PatternFormatter
+
+    - type        : DateFileOutputter
+      name        : auditlog
+      level       : INFO
+      date_pattern: '<%= "#{SERVER_ID}-#{SERVER_ENV}-audit-%Y%m%d-#{Socket.gethostname}" %>'
+      trunc       : 'false'
+      dirname     : "#{ROOT_PATH}/log"
+      formatter   :
+        date_pattern: '%Y-%m-%d %H:%M:%S'
+        pattern     : '<%= auditlog_pattern %>'
+        type        : PatternFormatter
