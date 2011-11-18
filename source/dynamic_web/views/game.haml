@@ -1,5 +1,6 @@
 %html
   %head
+    %title Asinbow's playground
     :css
       #message-container{
         height: 400px;
@@ -7,19 +8,31 @@
         margin: 15px 0;
         padding: 10px 10px;
         border: solid 5px green;
-        overflow: auto;
+        overflow-x: hidden;
+        overflow-y: scroll;
         background-color: #F0F0F0;
         box-shadow: 5px 5px 5px gray;
-        border-radius: 20px 40px;
+        border-radius: 10px 20px;
       }
       .message-item{
-        margin: 0 0;
+        margin: 5px 5px;
+        padding: 5px 5px;
+        width: 470px;
+        word-break: hyphenate;
+        border-radius: 5px 5px;
+        background-color: #E0E0E0;
+        box-shadow: 3px 3px 5px gray;
       }
     %script{:src => "http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"}
     :javascript
       $(document).ready(function(){
         function debug(str){ $("#debug").append("<p>"+str+"</p>"); };
-        function message(str){ $("#message-container").append("<p class=\"message-item\">"+str+"</p>"); };
+        function message(str){
+          var message_container = $("#message-container")
+          var height = message_container.attr("scrollHeight");
+          message_container.append("<p class=\"message-item\">"+str+"</p>");
+          message_container.attr({scrollTop: height});
+        };
         function handle(data){
           var user_sigature=data[0];
           switch(data[1]){
@@ -41,8 +54,10 @@
           $("input").show().focus();
           $("input").keypress(function(e){
             if(e.which==13){
-              ws.send(JSON.stringify([3, this.value]));
-              this.value = '';
+              if (this.value.length>0){
+                ws.send(JSON.stringify([3, this.value]));
+                this.value = '';
+              }
             }
           });
         };
